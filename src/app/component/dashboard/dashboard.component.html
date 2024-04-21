@@ -1,3 +1,195 @@
-
 <app-header></app-header>
 
+<!-- @if ((asyncTabs | async) === null) {
+  Loading tabs...
+} -->
+<mat-tab-group class="tab-group">
+  <!-- Use ngFor on a container element -->
+  <div *ngFor="let tab of asyncTabs | async; let i = index">
+    <mat-tab>
+      <ng-template mat-tab-label>
+       {{ tab.label }}
+      </ng-template>
+
+      <!-- Book a Flight start -->
+      <mat-card *ngIf="tab.id === 1" class="example-card">
+        <mat-card-header>
+          <!-- heading -->
+          <mat-card-title>SEARCH FOR FLIGHTS</mat-card-title>
+          <!-- radio buttons -->
+          <mat-card-subtitle>
+            <div class="col-md-12">
+              <mat-radio-group role="radiogroup" aria-label="Select an option" class="mat-radio-group">
+                <mat-radio-button value="one-way" class="mat-radio-button my-2 mr-2 mat-radio-checked mat-accent"
+                  id="mat-radio-{{ i }}">
+                  <label class="mat-radio-label" for="mat-radio-{{ i }}-input">
+                    <span class="mat-radio-container">
+                      <span class="mat-radio-outer-circle"></span>
+                      <span class="mat-radio-inner-circle"></span>
+                      <input type="radio" class="mat-radio-input cdk-visually-hidden" id="mat-radio-{{ i }}-input" tabindex="0"
+                        name="mat-radio-group-{{ i }}" value="one-way">
+                      <span mat-ripple="" class="mat-ripple mat-radio-ripple mat-focus-indicator">
+                        <span class="mat-ripple-element mat-radio-persistent-ripple"></span>
+                      </span>
+                    </span>
+                    <span class="mat-radio-label-content">
+                      <span class="font14 lightBlack boldProx">One Way</span>
+                    </span>
+                  </label>
+                </mat-radio-button>
+                <mat-radio-button value="round-trip" class="mat-radio-button my-2 mat-accent" id="mat-radio-{{ i+1 }}">
+                  <label class="mat-radio-label" for="mat-radio-{{ i+1 }}-input">
+                    <span class="mat-radio-container">
+                      <span class="mat-radio-outer-circle"></span>
+                      <span class="mat-radio-inner-circle"></span>
+                      <input type="radio" class="mat-radio-input cdk-visually-hidden" id="mat-radio-{{ i+1 }}-input" tabindex="0"
+                        name="mat-radio-group-{{ i }}" value="round-trip">
+                      <span mat-ripple="" class="mat-ripple mat-radio-ripple mat-focus-indicator">
+                        <span class="mat-ripple-element mat-radio-persistent-ripple"></span>
+                      </span>
+                    </span>
+                    <span class="mat-radio-label-content">
+                      <span class="font14 lightBlack boldProx">Round Trip</span>
+                    </span>
+                  </label>
+                </mat-radio-button>
+                <mat-radio-button value="round-trip" class="mat-radio-button my-2 mat-accent" id="mat-radio-{{ i+1 }}">
+                  <label class="mat-radio-label" for="mat-radio-{{ i+1 }}-input">
+                    <span class="mat-radio-container">
+                      <span class="mat-radio-outer-circle"></span>
+                      <span class="mat-radio-inner-circle"></span>
+                      <input type="radio" class="mat-radio-input cdk-visually-hidden" id="mat-radio-{{ i+1 }}-input" tabindex="0"
+                        name="mat-radio-group-{{ i }}" value="round-trip">
+                      <span mat-ripple="" class="mat-ripple mat-radio-ripple mat-focus-indicator">
+                        <span class="mat-ripple-element mat-radio-persistent-ripple"></span>
+                      </span>
+                    </span>
+                    <span class="mat-radio-label-content">
+                      <span class="font14 lightBlack boldProx">Multi City</span>
+                    </span>
+                  </label>
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </mat-card-subtitle>
+          <!-- radio buttons end-->
+        </mat-card-header>
+
+        <!-- USE MAT DIVIDER HERE -->
+
+        <mat-card-content>
+          <div class="col-md-12">
+            <p class="font14 lightBlack mb-1">Start Location</p>
+            <div class="locationBox">
+              <!-- Autocomplete component goes here -->
+              <input type="text" required class="form-control" placeholder="From" ng required />
+            </div>
+          </div>
+
+          <div class="col-md-12 h-0">
+            <mat-icon class="mat-icon notranslate addCursor swapButton material-icons mat-icon-no-color" aria-hidden="true"
+              data-mat-icon-type="font">swap_vert</mat-icon>
+          </div>
+
+          <div class="col-md-12">
+            <p class="font14 lightBlack mb-1">Destination</p>
+            <div class="locationBox">
+              <!-- Autocomplete component goes here -->
+              <input type="text" required class="form-control" placeholder="To" ng required />
+            </div>
+          </div>
+
+          <div class="col-md-12 p-0 d-flex">
+            <div class="col-md-6">
+              <p class="font14 lightBlack mb-1">Departure</p>
+              <mat-form-field>
+                <mat-label>From</mat-label>
+                <input matInput [matDatepicker]=departurePicker [formControl]="departureDate"
+                placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]=departurePicker></mat-datepicker-toggle>
+                <mat-datepicker #departurePicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <p class="font14 lightBlack mb-1">Return</p>
+              <mat-form-field>
+                <mat-label>To</mat-label>
+                <input matInput [matDatepicker]=returnPicker [formControl]="returnDate"
+                placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]=returnPicker></mat-datepicker-toggle>
+                <mat-datepicker #returnPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-button>Search</button>
+        </mat-card-actions>
+      </mat-card>
+      <!-- Book a Flight End -->
+
+      <!-- Book a hotel start -->
+
+      <mat-card *ngIf="tab.id === 2" class="example-card">
+        <mat-card-header>
+          <!-- heading -->
+          <mat-card-title>SEARCH FOR HOTELS</mat-card-title>
+        </mat-card-header>
+
+        <!-- USE MAT DIVIDER HERE -->
+
+        <mat-card-content>
+          <div class="col-md-12">
+            <p class="font14 lightBlack mb-1">Enter your Destination</p>
+            <div class="locationBox">
+              <!-- Autocomplete component goes here -->
+              <input type="text" required class="form-control" placeholder="From" ng required />
+            </div>
+          </div>
+
+          <div class="col-md-12 p-0 d-flex">
+            <div class="col-md-6">
+              <p class="font14 lightBlack mb-1">Check-In</p>
+              <mat-form-field>
+                <mat-label>From</mat-label>
+                <input matInput [matDatepicker]=departurePicker [formControl]="departureDate"
+                placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]=departurePicker></mat-datepicker-toggle>
+                <mat-datepicker #departurePicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <p class="font14 lightBlack mb-1">Check-Out</p>
+              <mat-form-field>
+                <mat-label>To</mat-label>
+                <input matInput [matDatepicker]=returnPicker [formControl]="returnDate"
+                placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]=returnPicker></mat-datepicker-toggle>
+                <mat-datepicker #returnPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <p class="font14 lightBlack mb-1">No. of Travellers & Room
+            </p>
+            <div class="locationBox">
+              <!-- Autocomplete component goes here -->
+              <input type="text" required class="form-control" placeholder="From" ng required />
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-button>Search</button>
+        </mat-card-actions>
+      </mat-card>
+
+      <!-- Book a hotel end -->
+
+
+
+    </mat-tab>
+  </div>
+</mat-tab-group>

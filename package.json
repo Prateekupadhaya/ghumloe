@@ -7,6 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "deploy": "ng build && aws s3 sync dist/ghumloe/browser s3://ghumloe/ --profile ghumloe && aws s3api put-bucket-website --bucket ghumloe --website-configuration file://website.json --profile ghumloe && aws cloudfront create-invalidation --distribution-id E13QXNTC9TG9EL --paths '/*' --profile ghumloe",
+
     "serve:ssr:ghumloe": "node dist/ghumloe/server/server.mjs"
   },
   "private": true,

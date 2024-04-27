@@ -1,0 +1,64 @@
+/* Styling the form container */
+.example-container mat-form-field + mat-form-field {
+  margin-left: 8px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+
+
+/* Styling the main container */
+.mat-typography {
+  padding: 20px;
+}
+
+/* Styling the title */
+.mat-typography .font-weight-bold {
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+
+
+/* Styling the form fields */
+mat-form-field {
+  width: 100%;
+  
+}
+
+
+/* Styling the password visibility button */
+mat-icon {
+  cursor: pointer;
+  color: black; /* Setting icon color */
+}
+
+/* Styling the forget password text */
+.mat-typography h3:nth-of-type(2) {
+  margin-top: 20px;
+}
+
+/* Styling the login button */
+.mat-raised-button {
+  width: 100%;
+  margin-top: 20px;
+  background-color: black; /* Setting button background color */
+  color: white; /* Setting button text color */
+  height: 50px; /* Set the height of the button */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Apply border radius for rounded corners */
+  font-size: 16px; /* Set the font size of the button text */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+/* Styling the sign-up text */
+.mat-typography h3:last-of-type {
+  margin-top: 20px;
+}
+
+.pb-4{
+  color: black;
+}
+
+.h3{
+  font-weight: bold;
+}

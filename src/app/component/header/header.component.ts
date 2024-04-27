@@ -14,8 +14,13 @@ import { LoginComponent } from '../../login/login.component';
 export class HeaderComponent {
   constructor(public dialog: MatDialog) {}
 
-  openDialog() {
-    const dialogRef = this.dialog.open(LoginComponent);
+  openDialog(){
+    const dialogRef = this.dialog.open(LoginComponent, {
+      height: '75%',
+      width: '40%',
+  
+    });
+    // const dialogRef = this.dialog.open(LoginComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

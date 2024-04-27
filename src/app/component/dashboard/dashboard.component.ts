@@ -45,7 +45,6 @@ export class DashboardComponent {
   returnDate = new FormControl();
 
   constructor() {
-    console.log('hello');
     this.asyncTabs = new Observable((observer: Observer<any[]>) => {
       setTimeout(() => {
         observer.next([

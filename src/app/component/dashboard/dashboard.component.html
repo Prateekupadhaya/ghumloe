@@ -89,8 +89,27 @@
             <p class="font14 lightBlack mb-1">Start Location</p>
             <div class="locationBox">
               <!-- Autocomplete component goes here -->
-              <input type="text" required class="input-box form-control" placeholder="From" ng required />
+              <input type="text"
+              required
+              class="input-box form-control"
+              placeholder="From"
+              (input)="onSearchFlight($event)"
+              [(ngModel)]="searchQuery" />
             </div>
+
+            <div *ngIf="airports" id="dropdown-list" class="dropdown-list dropdown-left-display addWidthInherit ng-star-inserted">
+              <ul id="type-name-list" class="dropdown-result scrollbar-track drpdwn-left-single">
+                  <li *ngFor="let airport of airports" class="d-flow-root ng-star-inserted">
+                      <a class="type-selector">
+                          <span class="boldProx black">{{ airport.name }}</span>, {{ airport.iataCode }} (<span class="boldProx black">{{ airport.code }}</span>)
+                      </a>
+                      <span class="result-type">Airport</span>
+                  </li>
+              </ul>
+          </div>
+
+
+
           </div>
 
           <div class="col-md-12 h-0">
@@ -102,7 +121,12 @@
             <p class="font14 lightBlack mb-1">Destination</p>
             <div class="locationBox">
               <!-- Autocomplete component goes here -->
-              <input type="text" required class="input-box form-control" placeholder="To" ng required />
+              <input type="text"
+              required
+              class="input-box form-control"
+              placeholder="To"
+              (input)="onSearchFlight($event)"
+              [(ngModel)]="destinationQuery" />
             </div>
           </div>
 

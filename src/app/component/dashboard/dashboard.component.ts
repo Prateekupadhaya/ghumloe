@@ -13,11 +13,11 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { DashboardService } from './services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  // imports: [],
   imports: [CommonModule, MatCardModule, MatInputModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatMomentDateModule, MatDatepickerModule, MatIconModule, MatRadioModule, MatButtonModule, MatMenuModule, HeaderComponent, MatTabsModule, AsyncPipe],
 
   templateUrl: './dashboard.component.html',
@@ -27,8 +27,11 @@ export class DashboardComponent {
   asyncTabs: Observable<any[]>;
   departureDate = new FormControl();
   returnDate = new FormControl();
+  searchQuery: string = '';
+  destinationQuery: string = '';
+  airports: any;
 
-  constructor() {
+  constructor(private dashboardService: DashboardService) {
     this.asyncTabs = new Observable((observer: Observer<any[]>) => {
       setTimeout(() => {
         observer.next([
@@ -41,5 +44,25 @@ export class DashboardComponent {
         ]);
       }, 1000);
     });
+  }
+
+  onSearchFlight(event?: any) {
+    console.log('event', event.target.value);
+    const serachQuery = event.target.value.trim();
+    if (serachQuery !== '') {
+      this.getFlight(serachQuery);
+    }
+  }
+
+  getFlight(query: string): void {
+    this.dashboardService.searchFlights('CITY', query).subscribe(
+      (data) => {
+        console.log("Search API response:", data.data);
+        this.airports = data.data;
+      },
+      (error) => {
+        console.error("Error calling search API:", error);
+      }
+    );
   }
 }

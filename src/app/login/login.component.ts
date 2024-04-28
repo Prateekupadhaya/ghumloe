@@ -1,41 +1,76 @@
 import { Component } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import {merge} from 'rxjs';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
   standalone: true,
-  imports: [MatButtonModule, MatMenuModule, MatDialogModule,MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule,MatIconModule ],
+  selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  imports: [MatButtonModule, MatMenuModule, MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatIconModule],
+  styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required]
+  });
   hide = true;
-    email = new FormControl('', [Validators.required, Validators.email]);
-  
-    errorMessage = '';
-  
-    constructor() {
-      merge(this.email.statusChanges, this.email.valueChanges)
-        .pipe(takeUntilDestroyed())
-        .subscribe(() => this.updateErrorMessage());
-    }
-  
-    updateErrorMessage() {
-      if (this.email.hasError('required')) {
+  errorMessage = '';
+
+  constructor(private fb: FormBuilder, private router: Router) { }
+
+  ngOnInit() {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  }
+
+  updateErrorMessage() {
+    const emailControl = this.loginForm.get('email');
+    if (emailControl) {
+      if (emailControl.hasError('required')) {
         this.errorMessage = 'You must enter a value';
-      } else if (this.email.hasError('email')) {
+      } else if (emailControl.hasError('email')) {
         this.errorMessage = 'Not a valid email';
       } else {
         this.errorMessage = '';
       }
     }
   }
+
+
+  login() {
+    if (this.loginForm.valid) {
+      const emailControl = this.loginForm.get('email');
+      const passwordControl = this.loginForm.get('password');
+
+      if (emailControl && passwordControl) {
+        const email = emailControl.value;
+        const password = passwordControl.value;
+        console.log('email', email);
+        console.log('password', password);
+
+      }
+    }
+  }
+
+  navigateToSignUp() {
+    // this.router.navigate(["/register"]);
+
+  }
+
+  forgetPassword() {
+    // this.router.navigate(["/forgetPassword"]);
+  }
+
+}
 

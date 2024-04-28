@@ -3,11 +3,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { LoginComponent } from '../../login/login.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatButtonModule, MatMenuModule],
+  imports: [MatButtonModule, MatMenuModule, MatDialogModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -16,14 +17,8 @@ export class HeaderComponent {
 
   openDialog(){
     const dialogRef = this.dialog.open(LoginComponent, {
-      height: '75%',
-      width: '40%',
-  
-    });
-    // const dialogRef = this.dialog.open(LoginComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      height: '600px',
+      width: '500px',
     });
   }
 }

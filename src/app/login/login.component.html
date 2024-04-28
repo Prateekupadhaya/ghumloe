@@ -1,0 +1,32 @@
+<mat-dialog-content class="mat-typography">
+  <!-- <h1 >Sign in</h1> -->
+  <div _ngcontent-serverapp-c111="" class="col-12"><p _ngcontent-serverapp-c111="" class="pb-4 px-4 m-0 font-weight-bold font42">Sign in</p></div>
+
+  <form class="example-form" [formGroup]="loginForm" (submit)="login()">
+    <!-- Email Field -->
+    <div class="example-container">
+       <h3 mat-card-title>Email</h3>
+       <mat-form-field>
+          <mat-label>Enter your email</mat-label>
+          <input matInput placeholder="pat@example.com" formControlName="email" required />
+          <mat-error *ngIf="loginForm.get('email')?.invalid">{{ errorMessage }}</mat-error>
+       </mat-form-field>
+    </div>
+    <!-- Password Field -->
+    <div class="example-container">
+       <h3 mat-card-title>Password</h3>
+       <mat-form-field>
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required />
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+             <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+       </mat-form-field>
+    </div>
+    <!-- Submit Button -->
+    <button type="submit" class="mat-raised-button">Login To Continue</button>
+ </form>
+ <h3 mat-card-title><a href="/forgetPassword">Forget Password</a></h3>
+ <h3 mat-card-title>Don't have an account ? <a href="/signup">Sign up</a></h3>
+ <!-- </form> -->
+</mat-dialog-content>

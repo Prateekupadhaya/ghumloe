@@ -48,12 +48,12 @@ export class DashboardComponent {
     this.asyncTabs = new Observable((observer: Observer<any[]>) => {
       setTimeout(() => {
         observer.next([
-          { id: 1, label: 'Flight' },
-          { id: 2, label: 'Hotel', content: 'Content 2' },
-          { id: 3, label: 'Plan a Trip', content: 'Content 3' },
-          { id: 4, label: 'Activity', content: 'Content 1' },
-          { id: 5, label: 'Transfers', content: 'Content 2' },
-          { id: 6, label: 'Intercity Cab', content: 'Content 3' },
+          {id: 1, label: 'assets/images/plane.png', content: 'flight'},
+          {id: 2, label: 'assets/images/hotel-sign.png', content: 'hotel'},
+          {id: 3, label: 'assets/images/travel-luggage.png', content: 'plan a trip'},
+          {id: 4, label: 'assets/images/paragliding.png', content: 'activity'},
+          {id: 5, label: 'assets/images/truck.png', content: 'transfers'},
+          {id: 6, label: 'assets/images/taxi (1).png', content: 'Intercity Cab'},
         ]);
       }, 1000);
     });

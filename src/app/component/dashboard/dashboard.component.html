@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <app-header></app-header>
 
 <!-- @if ((asyncTabs | async) === null) {
@@ -8,7 +10,12 @@
   <div *ngFor="let tab of asyncTabs | async; let i = index">
     <mat-tab>
       <ng-template mat-tab-label>
-       {{ tab.label }}
+        <!-- {{ tab.label }} -->
+        <span class="logo-img">
+          <img [ngClass]="{'icon-cab':tab.content === 'Intercity Cab'}"
+           src={{tab.label}} alt="" height="40">
+        </span>
+        <img src="">
       </ng-template>
 
       <!-- Book a Flight start -->
@@ -53,13 +60,13 @@
                     </span>
                   </label>
                 </mat-radio-button>
-                <mat-radio-button value="round-trip" class="mat-radio-button my-2 mat-accent" id="mat-radio-{{ i+1 }}">
-                  <label class="mat-radio-label" for="mat-radio-{{ i+1 }}-input">
+                <mat-radio-button value="multi-city" class="mat-radio-button my-2 mat-accent" id="mat-radio-{{ i+2 }}">
+                  <label class="mat-radio-label" for="mat-radio-{{ i+2 }}-input">
                     <span class="mat-radio-container">
                       <span class="mat-radio-outer-circle"></span>
                       <span class="mat-radio-inner-circle"></span>
-                      <input type="radio" class="mat-radio-input cdk-visually-hidden" id="mat-radio-{{ i+1 }}-input" tabindex="0"
-                        name="mat-radio-group-{{ i }}" value="round-trip">
+                      <input type="radio" class="mat-radio-input cdk-visually-hidden" id="mat-radio-{{ i+2 }}-input" tabindex="0"
+                        name="mat-radio-group-{{ i }}" value="multi-city">
                       <span mat-ripple="" class="mat-ripple mat-radio-ripple mat-focus-indicator">
                         <span class="mat-ripple-element mat-radio-persistent-ripple"></span>
                       </span>
@@ -82,7 +89,7 @@
             <p class="font14 lightBlack mb-1">Start Location</p>
             <div class="locationBox">
               <!-- Autocomplete component goes here -->
-              <input type="text" required class="form-control" placeholder="From" ng required />
+              <input type="text" required class="input-box form-control" placeholder="From" ng required />
             </div>
           </div>
 
@@ -91,21 +98,21 @@
               data-mat-icon-type="font">swap_vert</mat-icon>
           </div>
 
-          <div class="col-md-12">
+          <div class="destination-block col-md-12">
             <p class="font14 lightBlack mb-1">Destination</p>
             <div class="locationBox">
               <!-- Autocomplete component goes here -->
-              <input type="text" required class="form-control" placeholder="To" ng required />
+              <input type="text" required class="input-box form-control" placeholder="To" ng required />
             </div>
           </div>
 
-          <div class="col-md-12 p-0 d-flex">
+          <div class="col-md-12 p-0 d-flex departure-return">
             <div class="col-md-6">
               <p class="font14 lightBlack mb-1">Departure</p>
               <mat-form-field>
                 <mat-label>From</mat-label>
                 <input matInput [matDatepicker]=departurePicker [formControl]="departureDate"
-                placeholder="Choose a date">
+                  placeholder="Choose a date">
                 <mat-datepicker-toggle matSuffix [for]=departurePicker></mat-datepicker-toggle>
                 <mat-datepicker #departurePicker></mat-datepicker>
               </mat-form-field>
@@ -115,7 +122,7 @@
               <mat-form-field>
                 <mat-label>To</mat-label>
                 <input matInput [matDatepicker]=returnPicker [formControl]="returnDate"
-                placeholder="Choose a date">
+                  placeholder="Choose a date">
                 <mat-datepicker-toggle matSuffix [for]=returnPicker></mat-datepicker-toggle>
                 <mat-datepicker #returnPicker></mat-datepicker>
               </mat-form-field>
@@ -144,7 +151,7 @@
             <p class="font14 lightBlack mb-1">Enter your Destination</p>
             <div class="locationBox">
               <!-- Autocomplete component goes here -->
-              <input type="text" required class="form-control" placeholder="From" ng required />
+              <input type="text" required class="input-box form-control" placeholder="From" ng required />
             </div>
           </div>
 
@@ -154,7 +161,7 @@
               <mat-form-field>
                 <mat-label>From</mat-label>
                 <input matInput [matDatepicker]=departurePicker [formControl]="departureDate"
-                placeholder="Choose a date">
+                  placeholder="Choose a date">
                 <mat-datepicker-toggle matSuffix [for]=departurePicker></mat-datepicker-toggle>
                 <mat-datepicker #departurePicker></mat-datepicker>
               </mat-form-field>
@@ -164,7 +171,7 @@
               <mat-form-field>
                 <mat-label>To</mat-label>
                 <input matInput [matDatepicker]=returnPicker [formControl]="returnDate"
-                placeholder="Choose a date">
+                  placeholder="Choose a date">
                 <mat-datepicker-toggle matSuffix [for]=returnPicker></mat-datepicker-toggle>
                 <mat-datepicker #returnPicker></mat-datepicker>
               </mat-form-field>
@@ -172,11 +179,10 @@
           </div>
 
           <div class="col-md-12">
-            <p class="font14 lightBlack mb-1">No. of Travellers & Room
-            </p>
+            <p class="font14 lightBlack mb-1">No. of Travellers & Room</p>
             <div class="locationBox">
               <!-- Autocomplete component goes here -->
-              <input type="text" required class="form-control" placeholder="From" ng required />
+              <input type="text" required class="input-box form-control" placeholder="From" ng required />
             </div>
           </div>
         </mat-card-content>
@@ -185,11 +191,7 @@
           <button mat-button>Search</button>
         </mat-card-actions>
       </mat-card>
-
       <!-- Book a hotel end -->
-
-
-
     </mat-tab>
   </div>
 </mat-tab-group>

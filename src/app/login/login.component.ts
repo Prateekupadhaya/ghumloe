@@ -9,12 +9,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
   selector: 'app-login',
   templateUrl: './login.component.html',
-  imports: [MatButtonModule, MatMenuModule, MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatIconModule],
+  imports: [CommonModule, MatButtonModule, MatMenuModule, MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatIconModule],
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {

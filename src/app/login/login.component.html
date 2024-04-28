@@ -9,7 +9,7 @@
        <mat-form-field>
           <mat-label>Enter your email</mat-label>
           <input matInput placeholder="pat@example.com" formControlName="email" required />
-          <mat-error *ngIf="loginForm.get('email').invalid">{{ errorMessage }}</mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.invalid">{{ errorMessage }}</mat-error>
        </mat-form-field>
     </div>
     <!-- Password Field -->

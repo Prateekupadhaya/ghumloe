@@ -1,11 +1,8 @@
 /* Styling the form container */
 .example-container mat-form-field + mat-form-field {
   margin-left: 8px;
-  font-weight: bold;
   margin-bottom: 20px;
 }
-
-
 
 /* Styling the main container */
 .mat-typography {
@@ -18,13 +15,11 @@
   margin-bottom: 20px;
 }
 
-
 /* Styling the form fields */
 mat-form-field {
   width: 100%;
   
 }
-
 
 /* Styling the password visibility button */
 mat-icon {
@@ -55,10 +50,10 @@ mat-icon {
   margin-top: 20px;
 }
 
-.pb-4{
+.pb-4 {
   color: black;
 }
 
-.h3{
+.h3 {
   font-weight: bold;
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { LoginComponent } from '../login/login.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-header',
@@ -16,8 +16,8 @@ export class HeaderComponent {
 
   openDialog() {
     const dialogRef = this.dialog.open(LoginComponent, {
-      width: '40%',
-      height: '75%',
+      width: '45%',
+      height: '80%',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

@@ -43,10 +43,11 @@ export class LoginComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  openDialog() {
+  openDialog(event: MouseEvent) {
+    event.preventDefault(); // Prevent the default behavior of anchor element
     const dialogRef = this.dialog.open(RegistrationComponent, {
       height: '100%',
-      width: '40%',
+      width: '45%',
     });
   }
 

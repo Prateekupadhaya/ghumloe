@@ -15,10 +15,20 @@
   margin-bottom: 20px;
 }
 
+.signup-container {
+  display: inline-block;
+  margin-top: 10px; /* Adjust margin as needed */
+}
+
+.signup-container span {
+  margin-right: 10px; /* Adjust margin between text and link */
+}
+
+
 /* Styling the form fields */
 mat-form-field {
   width: 100%;
-  
+
 }
 
 /* Styling the password visibility button */

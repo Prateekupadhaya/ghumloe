@@ -91,10 +91,10 @@ export class DashboardComponent {
   }
 
   getstartLocationFlight(query: string, location: string): void {
-    this.dashboardService.searchFlights('CITY', query).subscribe(
+    this.dashboardService.searchAirport(query).subscribe(
       (data) => {
-        console.log("Search API response:", data.data);
-        this.startLocation = data.data;
+        console.log("Search API response:", data);
+        this.startLocation = data;
       },
       (error) => {
         console.error("Error calling search API:", error);
@@ -103,10 +103,10 @@ export class DashboardComponent {
   }
 
   getdestinationLocationFlight(query: string, location: string): void {
-    this.dashboardService.searchFlights('CITY', query).subscribe(
+    this.dashboardService.searchAirport(query).subscribe(
       (data) => {
-        console.log("Search API response:", data.data);
-        this.destinationLocation = data.data;
+        console.log("Search API response:", data);
+        this.destinationLocation = data;
       },
       (error) => {
         console.error("Error calling search API:", error);

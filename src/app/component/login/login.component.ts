@@ -10,7 +10,7 @@ import { OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RegistrationComponent } from '../component/registration/registration.component';
+import { RegistrationComponent } from '../registration/registration.component';
 
 @Component({
   standalone: true,

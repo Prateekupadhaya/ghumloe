@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
@@ -10,28 +10,50 @@ import { OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { RegistrationComponent } from '../component/registration/registration.component';
 
 @Component({
   standalone: true,
   selector: 'app-login',
   templateUrl: './login.component.html',
-  imports: [CommonModule, MatButtonModule, MatMenuModule, MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatIconModule],
-  styleUrls: ['./login.component.css']
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+  ],
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required]
+    password: ['', Validators.required],
   });
   hide = true;
   errorMessage = '';
 
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    public dialog: MatDialog
+  ) {}
+
+  openDialog() {
+    const dialogRef = this.dialog.open(RegistrationComponent, {
+      height: '100%',
+      width: '40%',
+    });
+  }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
 
@@ -48,7 +70,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
   login() {
     if (this.loginForm.valid) {
       const emailControl = this.loginForm.get('email');
@@ -59,19 +80,15 @@ export class LoginComponent implements OnInit {
         const password = passwordControl.value;
         console.log('email', email);
         console.log('password', password);
-
       }
     }
   }
 
   navigateToSignUp() {
     // this.router.navigate(["/register"]);
-
   }
 
   forgetPassword() {
     // this.router.navigate(["/forgetPassword"]);
   }
-
 }
-

@@ -1,8 +1,5 @@
-<mat-dialog-content class="mat-typography">
-  <!-- <h1 >Sign in</h1> -->
-  <div _ngcontent-serverapp-c111="" class="col-12"><p _ngcontent-serverapp-c111="" class="pb-4 px-4 m-0 font-weight-bold font42">Sign in</p></div>
-
-  <form class="example-form" [formGroup]="loginForm" (submit)="login()">
+  <form class="example-form mat-typography" [formGroup]="loginForm" (submit)="login()">
+   <div _ngcontent-serverapp-c111="" class="col-12"><p _ngcontent-serverapp-c111="" class="pb-4 px-4 m-0 font-weight-bold font42">Sign in</p></div>
     <!-- Email Field -->
     <div class="example-container">
        <h3 mat-card-title>Email</h3>
@@ -25,8 +22,9 @@
     </div>
     <!-- Submit Button -->
     <button type="submit" class="mat-raised-button">Login To Continue</button>
+    <h3 mat-card-title><a href="/forgetPassword">Forget Password</a></h3>
+ Don't have an account ? 
+ <button mat-raised-button (click)="openDialog()">Sign up</button>
+ <!-- <h3 mat-card-title>Don't have an account ? <a href="/signup" onclick="registerUser()">Sign up</a></h3> -->
  </form>
- <h3 mat-card-title><a href="/forgetPassword">Forget Password</a></h3>
- <h3 mat-card-title>Don't have an account ? <a href="/signup">Sign up</a></h3>
- <!-- </form> -->
-</mat-dialog-content>
+

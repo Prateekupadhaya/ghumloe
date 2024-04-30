@@ -12,8 +12,7 @@
       <ng-template mat-tab-label>
         <!-- {{ tab.label }} -->
         <span class="logo-img">
-          <img [ngClass]="{'icon-cab':tab.content === 'Intercity Cab'}"
-           src={{tab.label}} alt="" height="40">
+          <img [ngClass]="{'icon-cab':tab.content === 'Intercity Cab'}" src={{tab.label}} alt="" height="40">
         </span>
         <img src="">
       </ng-template>
@@ -26,15 +25,14 @@
           <!-- radio buttons -->
           <mat-card-subtitle>
             <div class="col-md-12">
-              <mat-radio-group role="radiogroup" aria-label="Select an option" class="mat-radio-group">
-                <mat-radio-button value="one-way" class="mat-radio-button my-2 mr-2 mat-radio-checked mat-accent"
-                  id="mat-radio-{{ i }}">
+              <mat-radio-group [(ngModel)]="selectedTripType" (change)="tripTypeChanged(selectedTripType)">
+                <mat-radio-button value="one-way" class="mat-radio-button my-2 mr-2 mat-radio-checked mat-accent">
                   <label class="mat-radio-label" for="mat-radio-{{ i }}-input">
                     <span class="mat-radio-container">
                       <span class="mat-radio-outer-circle"></span>
                       <span class="mat-radio-inner-circle"></span>
-                      <input type="radio" class="mat-radio-input cdk-visually-hidden" id="mat-radio-{{ i }}-input" tabindex="0"
-                        name="mat-radio-group-{{ i }}" value="one-way">
+                      <input type="radio" class="mat-radio-input cdk-visually-hidden" id="mat-radio-{{ i }}-input"
+                        tabindex="0" name="mat-radio-group-{{ i }}" value="one-way">
                       <span mat-ripple="" class="mat-ripple mat-radio-ripple mat-focus-indicator">
                         <span class="mat-ripple-element mat-radio-persistent-ripple"></span>
                       </span>
@@ -44,13 +42,13 @@
                     </span>
                   </label>
                 </mat-radio-button>
-                <mat-radio-button value="round-trip" class="mat-radio-button my-2 mat-accent" id="mat-radio-{{ i+1 }}">
+                <mat-radio-button value="round-trip" class="mat-radio-button my-2 mat-accent">
                   <label class="mat-radio-label" for="mat-radio-{{ i+1 }}-input">
                     <span class="mat-radio-container">
                       <span class="mat-radio-outer-circle"></span>
                       <span class="mat-radio-inner-circle"></span>
-                      <input type="radio" class="mat-radio-input cdk-visually-hidden" id="mat-radio-{{ i+1 }}-input" tabindex="0"
-                        name="mat-radio-group-{{ i }}" value="round-trip">
+                      <input type="radio" class="mat-radio-input cdk-visually-hidden" id="mat-radio-{{ i+1 }}-input"
+                        tabindex="0" name="mat-radio-group-{{ i }}" value="round-trip">
                       <span mat-ripple="" class="mat-ripple mat-radio-ripple mat-focus-indicator">
                         <span class="mat-ripple-element mat-radio-persistent-ripple"></span>
                       </span>
@@ -60,13 +58,13 @@
                     </span>
                   </label>
                 </mat-radio-button>
-                <mat-radio-button value="multi-city" class="mat-radio-button my-2 mat-accent" id="mat-radio-{{ i+2 }}">
+                <mat-radio-button value="multi-city" class="mat-radio-button my-2 mat-accent">
                   <label class="mat-radio-label" for="mat-radio-{{ i+2 }}-input">
                     <span class="mat-radio-container">
                       <span class="mat-radio-outer-circle"></span>
                       <span class="mat-radio-inner-circle"></span>
-                      <input type="radio" class="mat-radio-input cdk-visually-hidden" id="mat-radio-{{ i+2 }}-input" tabindex="0"
-                        name="mat-radio-group-{{ i }}" value="multi-city">
+                      <input type="radio" class="mat-radio-input cdk-visually-hidden" id="mat-radio-{{ i+2 }}-input"
+                        tabindex="0" name="mat-radio-group-{{ i }}" value="multi-city">
                       <span mat-ripple="" class="mat-ripple mat-radio-ripple mat-focus-indicator">
                         <span class="mat-ripple-element mat-radio-persistent-ripple"></span>
                       </span>
@@ -89,45 +87,56 @@
             <p class="font14 lightBlack mb-1">Start Location</p>
             <div class="locationBox">
               <!-- Autocomplete component goes here -->
-              <input type="text"
-              required
-              class="input-box form-control"
-              placeholder="From"
-              (input)="onSearchFlight($event)"
-              [(ngModel)]="searchQuery" />
+              <input type="text" required class="input-box form-control" placeholder="From"
+                (input)="onSearchFlight($event, 'startLocation')" [(ngModel)]="searchQuery" />
             </div>
 
-            <div *ngIf="airports" id="dropdown-list" class="dropdown-list dropdown-left-display addWidthInherit ng-star-inserted">
+            <div *ngIf="startLocation && isStartLocationTouched" id="dropdown-list"
+              class="dropdown-list dropdown-left-display addWidthInherit ng-star-inserted">
               <ul id="type-name-list" class="dropdown-result scrollbar-track drpdwn-left-single">
-                  <li *ngFor="let airport of airports" class="d-flow-root ng-star-inserted">
-                      <a class="type-selector">
-                          <span class="boldProx black">{{ airport.name }}</span>, {{ airport.iataCode }} (<span class="boldProx black">{{ airport.code }}</span>)
-                      </a>
-                      <span class="result-type">Airport</span>
-                  </li>
+                <li *ngFor="let airport of startLocation" class="d-flow-root ng-star-inserted"
+                  (click)="selectAirport(airport, 'startLocation')">
+                  <a class="type-selector">
+                    <span class="boldProx black">{{ airport.name }}</span>, {{ airport.address?.countryName }} (<span
+                      class="boldProx black">{{ airport.iataCode }}</span>)
+                  </a>
+                  <span class="result-type">Airport</span>
+                </li>
               </ul>
-          </div>
+            </div>
+
 
 
 
           </div>
 
           <div class="col-md-12 h-0">
-            <mat-icon class="mat-icon notranslate addCursor swapButton material-icons mat-icon-no-color" aria-hidden="true"
-              data-mat-icon-type="font">swap_vert</mat-icon>
+            <mat-icon class="mat-icon notranslate addCursor swapButton material-icons mat-icon-no-color"
+              aria-hidden="true" data-mat-icon-type="font">swap_vert</mat-icon>
           </div>
 
           <div class="destination-block col-md-12">
             <p class="font14 lightBlack mb-1">Destination</p>
             <div class="locationBox">
               <!-- Autocomplete component goes here -->
-              <input type="text"
-              required
-              class="input-box form-control"
-              placeholder="To"
-              (input)="onSearchFlight($event)"
-              [(ngModel)]="destinationQuery" />
+              <input type="text" required class="input-box form-control" placeholder="To"
+                (input)="onSearchFlight($event, 'destinationLocation')" [(ngModel)]="destinationQuery" />
             </div>
+
+            <div *ngIf="destinationLocation && isdestinationLocationTouched" id="dropdown-list"
+              class="dropdown-list dropdown-left-display addWidthInherit ng-star-inserted">
+              <ul id="type-name-list" class="dropdown-result scrollbar-track drpdwn-left-single">
+                <li *ngFor="let airport of destinationLocation" class="d-flow-root ng-star-inserted"
+                  (click)="selectAirport(airport, 'destination')">
+                  <a class="type-selector">
+                    <span class="boldProx black">{{ airport.name }}</span>, {{ airport.address?.countryName }} (<span
+                      class="boldProx black">{{ airport.iataCode }}</span>)
+                  </a>
+                  <span class="result-type">Airport</span>
+                </li>
+              </ul>
+            </div>
+
           </div>
 
           <div class="col-md-12 p-0 d-flex departure-return">
@@ -145,12 +154,12 @@
               <p class="font14 lightBlack mb-1">Return</p>
               <mat-form-field>
                 <mat-label>To</mat-label>
-                <input matInput [matDatepicker]=returnPicker [formControl]="returnDate"
-                  placeholder="Choose a date">
-                <mat-datepicker-toggle matSuffix [for]=returnPicker></mat-datepicker-toggle>
+                <input matInput [matDatepicker]="returnPicker" [formControl]="returnDate" placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]="returnPicker"></mat-datepicker-toggle>
                 <mat-datepicker #returnPicker></mat-datepicker>
               </mat-form-field>
             </div>
+
           </div>
         </mat-card-content>
 
@@ -194,8 +203,7 @@
               <p class="font14 lightBlack mb-1">Check-Out</p>
               <mat-form-field>
                 <mat-label>To</mat-label>
-                <input matInput [matDatepicker]=returnPicker [formControl]="returnDate"
-                  placeholder="Choose a date">
+                <input matInput [matDatepicker]=returnPicker [formControl]="returnDate" placeholder="Choose a date">
                 <mat-datepicker-toggle matSuffix [for]=returnPicker></mat-datepicker-toggle>
                 <mat-datepicker #returnPicker></mat-datepicker>
               </mat-form-field>

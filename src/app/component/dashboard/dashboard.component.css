@@ -96,6 +96,10 @@
   /* left: -21px !important; */
 }
 
+.dropdown-result > li:hover {
+  color: #125cb2;
+  background-color: #f4f4f4;
+}
 .dropdown-result {
   float: left;
   position: relative;

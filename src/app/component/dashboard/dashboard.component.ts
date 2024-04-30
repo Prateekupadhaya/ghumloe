@@ -1,5 +1,5 @@
 import { HeaderComponent } from './../header/header.component';
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { Observable, Observer } from 'rxjs';
@@ -26,12 +26,17 @@ import { DashboardService } from './services/dashboard.service';
 export class DashboardComponent {
   asyncTabs: Observable<any[]>;
   departureDate = new FormControl();
-  returnDate = new FormControl();
+  returnDate = new FormControl({value: '', disabled: true});
   searchQuery: string = '';
   destinationQuery: string = '';
-  airports: any;
+  startLocation: any;
+  isStartLocationTouched: boolean = false;
+  isdestinationLocationTouched: boolean = false;
+  selectedTripType: string = 'one-way';
+  isReturnDateDisabled: boolean = true;
+  destinationLocation: any;
 
-  constructor(private dashboardService: DashboardService) {
+  constructor(private dashboardService: DashboardService, private elementRef: ElementRef) {
     this.asyncTabs = new Observable((observer: Observer<any[]>) => {
       setTimeout(() => {
         observer.next([
@@ -46,23 +51,65 @@ export class DashboardComponent {
     });
   }
 
-  onSearchFlight(event?: any) {
-    console.log('event', event.target.value);
-    const serachQuery = event.target.value.trim();
-    if (serachQuery !== '') {
-      this.getFlight(serachQuery);
+  tripTypeChanged(tripType: string) {
+    if(tripType === 'round-trip') {
+      this.returnDate.enable();
+    }else {
+      this.returnDate.disable();
     }
   }
 
-  getFlight(query: string): void {
+
+  onSearchFlight(event: any, location:string) {
+    console.log('event', event.target.value);
+    const serachQuery = event.target.value.trim();
+    if (serachQuery !== '' && location == 'startLocation') {
+      this.isStartLocationTouched = true;
+      this.getstartLocationFlight(serachQuery, location);
+    }
+    if (serachQuery !== '' && location == 'destinationLocation') {
+      this.isdestinationLocationTouched = true;
+      this.getdestinationLocationFlight(serachQuery, location);
+    }
+  }
+
+  getstartLocationFlight(query: string, location: string): void {
     this.dashboardService.searchFlights('CITY', query).subscribe(
       (data) => {
         console.log("Search API response:", data.data);
-        this.airports = data.data;
+        this.startLocation = data.data;
       },
       (error) => {
         console.error("Error calling search API:", error);
       }
     );
+  }
+
+  getdestinationLocationFlight(query: string, location: string): void {
+    this.dashboardService.searchFlights('CITY', query).subscribe(
+      (data) => {
+        console.log("Search API response:", data.data);
+        this.destinationLocation = data.data;
+      },
+      (error) => {
+        console.error("Error calling search API:", error);
+      }
+    );
+  }
+
+  selectAirport(event: any, location:any) {
+    console.log('airport selected', event)
+    if(location === 'startLocation') {
+      this.searchQuery = event.name;
+      this.isStartLocationTouched = false;
+    }
+    if(location === 'destination') {
+      this.destinationQuery = event.name;
+      this.isdestinationLocationTouched = false;
+    }
+  }
+
+  searchFlights() {
+
   }
 }

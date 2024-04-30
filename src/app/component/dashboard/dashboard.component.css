@@ -80,3 +80,54 @@
 .icon-cab{
   height: 50px;
 }
+
+.dropdown-list {
+  position: absolute;
+  z-index: 90;
+  /* top: 32px; */
+  font-size: 13px;
+  background-color: #fff;
+  color: #ffffff80;
+  text-align: left;
+  transform: translateY(17px);
+  border-radius: 10px !important;
+  box-shadow: 1px 2px 14px #999;
+  border: none !important;
+  /* left: -21px !important; */
+}
+
+.dropdown-result > li:hover {
+  color: #125cb2;
+  background-color: #f4f4f4;
+}
+.dropdown-result {
+  float: left;
+  position: relative;
+  background: #ffffff;
+  margin: 0;
+  height: auto;
+  max-height: 300px;
+  width: inherit;
+  border-radius: 0 10px 10px 0;
+  padding: 0;
+  overflow-y: scroll;
+}
+
+
+.result-type {
+  color: #ff6b35;
+  float: right;
+  padding: 10px;
+}
+
+.type-selector {
+  display: inline-block;
+  color: #595959;
+  padding: 10px;
+  width: auto !important;
+  max-width: 18em !important;
+}
+
+.d-flow-root {
+  cursor: pointer;
+}

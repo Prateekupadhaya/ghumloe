@@ -1,3 +1,4 @@
+import { CommonService } from './../../common.service';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -40,7 +41,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private commonService: CommonService
   ) {}
 
   openDialog(event: MouseEvent) {
@@ -79,6 +81,15 @@ export class LoginComponent implements OnInit {
       if (emailControl && passwordControl) {
         const email = emailControl.value;
         const password = passwordControl.value;
+        this.commonService.login(email, password, 'user').subscribe((data)=>{
+          console.log('data', data);
+          if(data && data.auth){
+            localStorage.setItem('token', data.stok);
+            localStorage.setItem('roles', data.roles);
+            // redirect user to main page
+          }
+        })
+
         console.log('email', email);
         console.log('password', password);
       }

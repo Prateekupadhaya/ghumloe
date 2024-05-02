@@ -4,6 +4,31 @@
   margin-left: 240px;
   margin-top: 100px;
 }
+/*
+.mat-card-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.mat-button {
+  width: 100%;
+  /* margin-top: 20px; */
+  /* background-color: black;
+  color: white;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}  */
+
+/* Hover effect for the submit button */
+/* .mat-button:hover {
+  background-color: #0056b3; /* Darken the background color on hover */
+/* }  */
+
 
 .locationBox {
   padding: .375rem .75rem;
@@ -44,7 +69,6 @@
   margin-top: -24px;
 }
 
-/* Updated CSS for Departure and Return */
 .departure-return {
   margin-top: 20px;
   display: flex;

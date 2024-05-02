@@ -85,9 +85,26 @@ export class DashboardService {
   // }
 
   searchAirport(location: string): Observable<any> {
-    const url = 'https://nsa3c3ywm6.execute-api.us-east-1.amazonaws.com/dev/fetch_airport';
+    const url = `${environment.api_base_url}/fetch_airport`;
+    // const url = `${environment.api_base_url}`;
+
+    console.log('url', url);
 
     const params = new HttpParams().set('location', location);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.get<any[]>(url, { params, headers });
+  }
+
+  searchFlight(originLocationCode: string, destinationLocationCode: string, adults: number, max: number, departureDate: string): Observable<any> {
+    const url = `${environment.api_base_url}/fetch_flight`;
+
+    const params = new HttpParams()
+      .set('originLocationCode', originLocationCode)
+      .set('destinationLocationCode', destinationLocationCode)
+      .set('adults', adults.toString())
+      .set('max', max.toString())
+      .set('departureDate', departureDate);
+
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.get<any[]>(url, { params, headers });
   }

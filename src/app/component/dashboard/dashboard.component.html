@@ -83,10 +83,10 @@
         <!-- USE MAT DIVIDER HERE -->
 
         <mat-card-content>
+          <!-- Start Location input -->
           <div class="col-md-12">
             <p class="font14 lightBlack mb-1">Start Location</p>
             <div class="locationBox">
-              <!-- Autocomplete component goes here -->
               <input type="text" required class="input-box form-control" placeholder="From"
                 (input)="onSearchFlight($event, 'startLocation')" [(ngModel)]="searchQuery" />
             </div>
@@ -118,7 +118,6 @@
           <div class="destination-block col-md-12">
             <p class="font14 lightBlack mb-1">Destination</p>
             <div class="locationBox">
-              <!-- Autocomplete component goes here -->
               <input type="text" required class="input-box form-control" placeholder="To"
                 (input)="onSearchFlight($event, 'destinationLocation')" [(ngModel)]="destinationQuery" />
             </div>
@@ -163,8 +162,8 @@
           </div>
         </mat-card-content>
 
-        <mat-card-actions>
-          <button mat-button>Search</button>
+        <mat-card-actions class="mat-card-actions">
+          <button class="mat-button" mat-button (click)="searchFlights()">Search</button>
         </mat-card-actions>
       </mat-card>
       <!-- Book a Flight End -->

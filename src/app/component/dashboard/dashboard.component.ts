@@ -2,7 +2,7 @@ import { HeaderComponent } from './../header/header.component';
 import { Component, ElementRef, HostListener } from '@angular/core';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer, Subject, debounceTime } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatRadioModule } from '@angular/material/radio'; // Import MatRadioModule
@@ -41,6 +41,8 @@ import { DashboardService } from './services/dashboard.service';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
+  private searchSubject = new Subject<any>();
+
   asyncTabs: Observable<any[]>;
   departureDate = new FormControl();
   returnDate = new FormControl({value: '', disabled: true});
@@ -48,6 +50,8 @@ export class DashboardComponent {
   destinationQuery: string = '';
   startLocation: any;
   isStartLocationTouched: boolean = false;
+  selectedStartLocation: any;
+  selectedDestinationLocation: any;
   isdestinationLocationTouched: boolean = false;
   selectedTripType: string = 'one-way';
   isReturnDateDisabled: boolean = true;
@@ -66,6 +70,10 @@ export class DashboardComponent {
         ]);
       }, 1000);
     });
+
+    this.searchSubject.pipe(debounceTime(500)).subscribe((data) => {
+      this.getAirportLocation(data.searchQuery, data.location);
+    });
   }
 
   tripTypeChanged(tripType: string) {
@@ -79,34 +87,29 @@ export class DashboardComponent {
 
   onSearchFlight(event: any, location:string) {
     console.log('event', event.target.value);
-    const serachQuery = event.target.value.trim();
-    if (serachQuery !== '' && location == 'startLocation') {
+    const searchQuery = event.target.value.trim();
+    const data = {
+      searchQuery,
+      location
+    }
+    if (searchQuery !== '' && location == 'startLocation') {
       this.isStartLocationTouched = true;
-      this.getstartLocationFlight(serachQuery, location);
+      this.searchSubject.next(data);
     }
-    if (serachQuery !== '' && location == 'destinationLocation') {
+    if (searchQuery !== '' && location == 'destinationLocation') {
       this.isdestinationLocationTouched = true;
-      this.getdestinationLocationFlight(serachQuery, location);
+      this.searchSubject.next(data);
     }
   }
 
-  getstartLocationFlight(query: string, location: string): void {
+  getAirportLocation(query: string, location: string): void {
     this.dashboardService.searchAirport(query).subscribe(
       (data) => {
-        console.log("Search API response:", data);
-        this.startLocation = data;
-      },
-      (error) => {
-        console.error("Error calling search API:", error);
-      }
-    );
-  }
-
-  getdestinationLocationFlight(query: string, location: string): void {
-    this.dashboardService.searchAirport(query).subscribe(
-      (data) => {
-        console.log("Search API response:", data);
-        this.destinationLocation = data;
+        if(location === 'startLocation'){
+          this.startLocation = data;
+        } else{
+          this.destinationLocation = data;
+        }
       },
       (error) => {
         console.error("Error calling search API:", error);
@@ -118,15 +121,29 @@ export class DashboardComponent {
     console.log('airport selected', event)
     if(location === 'startLocation') {
       this.searchQuery = event.name;
+      this.selectedStartLocation = event;
       this.isStartLocationTouched = false;
     }
     if(location === 'destination') {
       this.destinationQuery = event.name;
+      this.selectedDestinationLocation = event;
       this.isdestinationLocationTouched = false;
     }
   }
 
   searchFlights() {
-
+    const departureDateValue = this.departureDate.value ? this.departureDate.value.format('YYYY-MM-DD') : '';
+    // const returnDateValue = this.returnDate.value ? this.returnDate.value.format('YYYY-MM-DD') : '';
+    const adults = 5;
+    try {
+      this.dashboardService.searchFlight(this.selectedStartLocation.iataCode, this.selectedDestinationLocation.iataCode,
+        adults, 10, departureDateValue).subscribe((data) => {
+        console.log(data);
+      }, (error) => {
+        console.error("Error calling searchFlight API:", error);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

@@ -12,12 +12,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RegistrationComponent } from '../registration/registration.component';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   standalone: true,
   selector: 'app-login',
   templateUrl: './login.component.html',
   imports: [
+    SpinnerComponent,
     CommonModule,
     MatButtonModule,
     MatMenuModule,
@@ -37,6 +39,7 @@ export class LoginComponent implements OnInit {
   });
   hide = true;
   errorMessage = '';
+  showSpinner: any;
 
   constructor(
     private fb: FormBuilder,
@@ -74,25 +77,32 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.loginForm.valid) {
-      const emailControl = this.loginForm.get('email');
-      const passwordControl = this.loginForm.get('password');
+    try {
+      this.showSpinner = true;
+      if (this.loginForm.valid) {
+        const emailControl = this.loginForm.get('email');
+        const passwordControl = this.loginForm.get('password');
 
-      if (emailControl && passwordControl) {
-        const email = emailControl.value;
-        const password = passwordControl.value;
-        this.commonService.login(email, password, 'user').subscribe((data)=>{
-          console.log('data', data);
-          if(data && data.auth){
-            localStorage.setItem('token', data.stok);
-            localStorage.setItem('roles', data.roles);
-            // redirect user to main page
-          }
-        })
+        if (emailControl && passwordControl) {
+          const email = emailControl.value;
+          const password = passwordControl.value;
+          this.commonService.login(email, password, 'user').subscribe((data)=>{
+            console.log('data', data);
+            if(data && data.auth){
+              this.showSpinner = false;
+              localStorage.setItem('token', data.stok);
+              localStorage.setItem('roles', data.roles);
+              // redirect user to main page
+            }
+          })
 
-        console.log('email', email);
-        console.log('password', password);
+          console.log('email', email);
+          console.log('password', password);
+        }
       }
+    } catch (error) {
+      this.showSpinner = false;
+      console.log('error', error);
     }
   }
 

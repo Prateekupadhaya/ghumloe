@@ -10,3 +10,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   width: 240px;
   z-index: 100;
 }
+
+.loader .overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.loader .loader-bg {
+  background: white;
+}

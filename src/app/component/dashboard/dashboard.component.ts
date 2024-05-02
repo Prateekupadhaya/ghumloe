@@ -14,12 +14,14 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { DashboardService } from './services/dashboard.service';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   // imports: [],
   imports: [
+    SpinnerComponent,
     CommonModule,
     MatCardModule,
     MatInputModule,
@@ -56,6 +58,7 @@ export class DashboardComponent {
   selectedTripType: string = 'one-way';
   isReturnDateDisabled: boolean = true;
   destinationLocation: any;
+  showSpinner: boolean = true;
 
   constructor(private dashboardService: DashboardService, private elementRef: ElementRef) {
     this.asyncTabs = new Observable((observer: Observer<any[]>) => {
@@ -132,14 +135,16 @@ export class DashboardComponent {
   }
 
   searchFlights() {
+    this.showSpinner = true;
     const departureDateValue = this.departureDate.value ? this.departureDate.value.format('YYYY-MM-DD') : '';
     // const returnDateValue = this.returnDate.value ? this.returnDate.value.format('YYYY-MM-DD') : '';
     const adults = 5;
     try {
       this.dashboardService.searchFlight(this.selectedStartLocation.iataCode, this.selectedDestinationLocation.iataCode,
         adults, 10, departureDateValue).subscribe((data) => {
-        console.log(data);
+        this.showSpinner = false;
       }, (error) => {
+        this.showSpinner = false;
         console.error("Error calling searchFlight API:", error);
       });
     } catch (error) {

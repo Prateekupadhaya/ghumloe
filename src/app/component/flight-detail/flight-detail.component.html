@@ -1,0 +1,130 @@
+<div >
+  <mat-card >
+    <div class="division" >
+      
+      <mat-form-field class="hsw_inputBox">
+        <mat-label class="labelbox"
+          >Trip Type</mat-label
+        >
+        <mat-select class="labelbox">
+          <mat-option value="oneway">one-way</mat-option>
+          <mat-option value="roundtrip">Round-Trip</mat-option>
+          <mat-option value="multicity">Multi-City</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="hsw_inputBox">
+        <mat-label class="labelbox"
+          >From</mat-label
+        >
+       
+        <input
+          class=""
+          matInput
+          placeholder="Start"
+          value="Delhi"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="hsw_inputBox">
+        <mat-label class="labelbox"
+          >To</mat-label
+        >
+        <!-- TODO -->
+        <input
+          class=""
+          matInput
+          placeholder="End"
+          value="Lucknow"
+        />
+      </mat-form-field>
+
+     
+      <mat-form-field class="hsw_inputBox">
+        <mat-label class="labelbox">DEPART</mat-label>
+        <input
+          matInput
+          [matDatepicker]="departurePicker"
+          [formControl]="departureDate"
+          placeholder="Choose a date"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="departurePicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #departurePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="hsw_inputBox">
+          <mat-label class="labelbox">RETURN</mat-label>
+          <input matInput [matDatepicker]="returnPicker" [formControl]="returnDate" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="returnPicker"></mat-datepicker-toggle>
+          <mat-datepicker #returnPicker></mat-datepicker>
+      </mat-form-field>
+
+        
+      <button   class="button-style labelbox" mat-button  (click)="openDialog()">Add Members</button>
+      <button class="button-style labelbox" mat-button >Search</button>
+      
+    
+    </div>
+  </mat-card>
+</div>
+
+
+
+<div class="roomsGuestsTop search-bar">
+  <mat-card *ngIf="openDialogues" class="example-card ">
+    <mat-card-content>
+      <mat-card-title>On the day of travel</mat-card-title>
+
+      <mat-form-field>
+        <mat-label>ADULTS (12y +)</mat-label>
+        <mat-select>
+          <mat-option value="one">1</mat-option>
+          <mat-option value="two">2</mat-option>
+          <mat-option value="three">3</mat-option>
+          <mat-option value="four">4</mat-option>
+          <mat-option value="five">5</mat-option>
+          <mat-option value="six">6</mat-option>
+          <mat-option value="seven">7</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>CHILDREN (2y - 12y )</mat-label>
+        <mat-select>
+          <mat-option value="one">1</mat-option>
+          <mat-option value="two">2</mat-option>
+          <mat-option value="three">3</mat-option>
+          <mat-option value="four">4</mat-option>
+          <mat-option value="five">5</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>INFANTS (below 2y)</mat-label>
+        <mat-select>
+          <mat-option value="one">1</mat-option>
+          <mat-option value="two">2</mat-option>
+          <mat-option value="three">3</mat-option>
+          <mat-option value="four">4</mat-option>
+          <mat-option value="five">5</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Travel Class</mat-label>
+        <mat-select
+          class="guestCounter font12 darkText paxClass"
+          [(ngModel)]="selectedTravelClass"
+        >
+          <mat-option value="Economy">Economy</mat-option>
+          <mat-option value="Premium Economy">Premium Economy</mat-option>
+          <mat-option value="Business">Business</mat-option>
+          <mat-option value="First Class">First Class</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+</div>

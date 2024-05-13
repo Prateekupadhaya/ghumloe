@@ -1,0 +1,28 @@
+.button-style{
+  /* flex: 3px; */
+  padding: 12px;
+  height: 55px; 
+  /* width: auto; */ 
+  margin-bottom:17px ;
+  margin-right: 15px;
+  margin-left: 15px;
+  background-color:white;
+}
+
+
+.division{
+  background-color: #041422;;
+  margin-left: 10px;
+  margin-right: 10px;
+
+}
+
+.hsw_inputBox{
+  padding: 12px;
+  
+}
+
+.labelbox{
+ font-weight:bold ; 
+ color: black;
+}
